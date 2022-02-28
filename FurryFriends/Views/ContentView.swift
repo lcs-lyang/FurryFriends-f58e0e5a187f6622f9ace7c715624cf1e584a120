@@ -31,7 +31,7 @@ struct ContentView: View {
         .task {
             
             // Example images for each type of pet
-            let remoteCatImage = "https://purr.objects-us-east-1.dream.io/i/JJiYI.jpg"
+            
             let remoteDogImage = "https://images.dog.ceo/breeds/labrador/lab_young.JPG"
             
             // Replaces the transparent pixel image with an actual image of an animal

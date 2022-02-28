@@ -75,8 +75,8 @@
 		8134B15227CA55BC004DEB85 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8134B15727CA5B63004DEB85 /* Helpers */,
 				8134B14627CA4862004DEB85 /* ContentView.swift */,
+				8134B15727CA5B63004DEB85 /* Helpers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
