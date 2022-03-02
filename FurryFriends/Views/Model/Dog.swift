@@ -11,3 +11,9 @@ struct Dog: Decodable, Hashable, Encodable {
     let message: String
     let status: String
 }
+
+let listOfDogs = [
+    
+    Dog(message:"", status: "")
+    
+]

@@ -33,8 +33,16 @@ struct ContentView: View {
             
             Image(systemName: "heart.circle")
                 .resizable()
-            //.foregroundColor(currentDogAddedToFavourites == true ? .red : .secondary)
+                .foregroundColor(currentDogAddedToFavourites == true ? .red : .secondary)
                 .frame(width: 40, height: 40)
+                .onTapGesture {
+                    
+                    if currentDogAddedToFavourites == false {
+                        favourites.append(currentFavourite)
+                        
+                        currentDogAddedToFavourites = true
+                    }
+                }
             
             Button(action: {
                 Task{
@@ -47,9 +55,18 @@ struct ContentView: View {
                 .padding()
             
             
+            
+            HStack {
+                Text("Favourite Doggies")
+                    .font(.title3)
+                    .bold()
+                    .padding()
+                Spacer()
+            }
             List(favourites, id: \.self) { currentFavourite in
                 Text(currentFavourite.message)
                 
+            
                 
                 Spacer()
                 
@@ -105,10 +122,10 @@ struct ContentView: View {
             //force unwrapping the URL, which was an optional, telling swift that we know
             //that the URL definitely is a correct url
             
-            
-            
             // Reset the flag that racks whether the current joke
             //is a favorite
+            currentDogAddedToFavourites = false
+            
             
         } catch {
             print("Could not retrieve or decode the JSON from endpoint.")
