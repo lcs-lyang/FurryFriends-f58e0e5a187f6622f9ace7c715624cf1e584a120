@@ -21,6 +21,8 @@ struct ContentView: View {
     
     @State var favourites: [Dog] = []
     
+    @State var currentDogAddedToFavourites: Bool = false
+    
     // MARK: Computed properties
     var body: some View {
         
@@ -31,6 +33,7 @@ struct ContentView: View {
             
             Image(systemName: "heart.circle")
                 .resizable()
+            //.foregroundColor(currentDogAddedToFavourites == true ? .red : .secondary)
                 .frame(width: 40, height: 40)
             
             Button(action: {
@@ -44,28 +47,26 @@ struct ContentView: View {
                 .padding()
             
             
-            //List (favourites, id: \.self) { currentFavorite in
-                //RemoteImageView(fromURL: currentImage)
+            List(favourites, id: \.self) { currentFavourite in
+                Text(currentFavourite.message)
                 
-            // Push main image to top of screen
-            Spacer()
-
+                
+                Spacer()
+                
+            }
+            // Runs once when the app is opened
+            .task {
+                
+                currentImage = URL(string: currentFavourite.message)!
+                
+                await loadNewImage()
+                
+                loadFavourites()
+                
+            }
+            .navigationTitle("Doggies")
+            
         }
-        // Runs once when the app is opened
-        .task {
-            
-            // Example images for each type of pet
-            
-            //let remoteDogImage = "https://images.dog.ceo/breeds/labrador/lab_young.JPG"
-            
-            // Replaces the transparent pixel image with an actual image of an animal
-            // Adjust according to your preference ☺️
-            currentImage = URL(string: currentFavourite.message)!
-            
-            await loadNewImage()
-                        
-        }
-        .navigationTitle("Doggies")
         
     }
     
