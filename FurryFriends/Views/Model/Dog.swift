@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Dog {
+struct Dog: Decodable, Hashable, Encodable {
     let message: String
     let status: String
 }
