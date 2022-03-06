@@ -11,8 +11,8 @@
 //
 //    @Binding var currentDogAddedToFavourites: Bool
 //    let systemName: String
-//    let favourites: [Dog] = []
-//    let currentFavourite: Dog = Dog(message: "https://www.russellgordon.ca/lcs/miscellaneous/transparent-pixel.png", status: "")
+//    let favouriteDogs: [Dog] = []
+//    let currentFavouriteDog: Dog = Dog(message: "https://www.russellgordon.ca/lcs/miscellaneous/transparent-pixel.png", status: "")
 //
 //    var body: some View {
 //

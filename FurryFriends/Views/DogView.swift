@@ -17,9 +17,9 @@ struct ContentView: View {
     @State var currentDogImage = URL(string: "https://www.russellgordon.ca/lcs/miscellaneous/transparent-pixel.png")!
     
     //message is the link of the image
-    @State var currentFavourite: Dog = Dog(message: "https://www.russellgordon.ca/lcs/miscellaneous/transparent-pixel.png", status: "")
+    @State var currentFavouriteDog: Dog = Dog(message: "https://www.russellgordon.ca/lcs/miscellaneous/transparent-pixel.png", status: "")
     
-    @State var favourites: [Dog] = []
+    @State var favouriteDogs: [Dog] = []
     
     @State var currentDogAddedToFavourites: Bool = false
     
@@ -39,7 +39,7 @@ struct ContentView: View {
                 .onTapGesture {
                     
                     if currentDogAddedToFavourites == false {
-                        favourites.append(currentFavourite)
+                        favouriteDogs.append(currentFavouriteDog)
                         
                         currentDogAddedToFavourites = true
                     }
@@ -64,7 +64,7 @@ struct ContentView: View {
                     .padding()
                 Spacer()
             }
-            List(favourites, id: \.self) { currentFavourite in
+            List(favouriteDogs, id: \.self) { currentFavourite in
                 Text(currentFavourite.message)
                 
                 
@@ -74,7 +74,7 @@ struct ContentView: View {
             // Runs once when the app is opened
             .task {
                 
-                currentDogImage = URL(string: currentFavourite.message)!
+                currentDogImage = URL(string: currentFavouriteDog.message)!
                 
                 await loadNewImage()
                 
@@ -130,11 +130,11 @@ struct ContentView: View {
             //                                 DATA TYPE TO DECODE TO
             //                                         |
             //                                         V
-            currentFavourite = try JSONDecoder().decode(Dog.self, from: data)
+            currentFavouriteDog = try JSONDecoder().decode(Dog.self, from: data)
             
             // Replaces the transparent pixel image with an actual image of an animal
             // Adjust according to your preference ☺️
-            currentDogImage = URL(string: currentFavourite.message)!
+            currentDogImage = URL(string: currentFavouriteDog.message)!
             //force unwrapping the URL, which was an optional, telling swift that we know
             //that the URL definitely is a correct url
             
@@ -166,7 +166,7 @@ struct ContentView: View {
             encoder.outputFormatting = .prettyPrinted
             
             //Encode the list of favorites we've collected
-            let data = try encoder.encode(favourites)
+            let data = try encoder.encode(favouriteDogs)
             
             //Write the JSON to a file in the filename location we came up with
             //earlier
@@ -202,7 +202,7 @@ struct ContentView: View {
             
             //Decode the JSON into Swift native data structures
             //NOTE: We use [DadJoke] since we are loading into a list (array)
-            favourites = try JSONDecoder().decode([Dog].self, from: data)
+            favouriteDogs = try JSONDecoder().decode([Dog].self, from: data)
             
         } catch {
             //What went wrong?
