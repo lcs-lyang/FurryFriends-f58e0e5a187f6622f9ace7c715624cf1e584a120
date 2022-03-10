@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct DogView: View {
     
     // MARK: Stored properties
     
@@ -21,7 +21,7 @@ struct ContentView: View {
     
     @State var favouriteDogs: [Dog] = []
     
-    @State var currentDogAddedToFavourites: Bool = false
+    @State var currentAddedToFavourites: Bool = false
     
     
     // MARK: Computed properties
@@ -32,16 +32,13 @@ struct ContentView: View {
             // Shows the main image
             RemoteImageView(fromURL: currentDogImage)
             
-            Image(systemName: "heart.circle")
-                .resizable()
-                .foregroundColor(currentDogAddedToFavourites == true ? .red : .secondary)
-                .frame(width: 40, height: 40)
+            ShowAnimalImage(currentAddedToFavourites: $currentAddedToFavourites)
                 .onTapGesture {
                     
-                    if currentDogAddedToFavourites == false {
+                    if currentAddedToFavourites == false {
                         favouriteDogs.append(currentFavouriteDog)
                         
-                        currentDogAddedToFavourites = true
+                        currentAddedToFavourites = true
                     }
                 }
             
@@ -140,7 +137,7 @@ struct ContentView: View {
             
             // Reset the flag that racks whether the current joke
             //is a favorite
-            currentDogAddedToFavourites = false
+            currentAddedToFavourites = false
             
             
         } catch {
@@ -215,10 +212,10 @@ struct ContentView: View {
     
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct DogView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ContentView()
+            DogView()
         }
     }
 }

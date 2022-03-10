@@ -14,13 +14,13 @@ struct CatView: View {
     
     @Environment(\.scenePhase) var scenePhase
     
-    @State var currentCatImage = URL(string: "https://www.russellgordon.ca/lcs/miscellaneous/transparent-pixel.png")!
+    @State var currentCatImage = URL(string: "https://cdn2.thecatapi.com/images/4ip.gif")!
     
-    @State var currentFavouriteCat: Cat = Cat(id: "", url: "https://www.russellgordon.ca/lcs/miscellaneous/transparent-pixel.png")
+    @State var currentFavouriteCat: Cat = Cat(id: "", url: "https://cdn2.thecatapi.com/images/4ip.gif")
     
     @State var favouriteCats: [Cat] = []
     
-    @State var currentCatAddedToFavourites: Bool = false
+    @State var currentAddedToFavourites: Bool = false
     
     
     // MARK: Computed properties
@@ -30,16 +30,13 @@ struct CatView: View {
             
             RemoteImageView(fromURL: currentCatImage)
             
-            Image(systemName: "heart.circle")
-                .resizable()
-                .foregroundColor(currentCatAddedToFavourites == true ? .red : .secondary)
-                .frame(width: 40, height: 40)
+            ShowAnimalImage(currentAddedToFavourites: $currentAddedToFavourites)
                 .onTapGesture {
                     
-                    if currentCatAddedToFavourites == false {
+                    if currentAddedToFavourites == false {
                         favouriteCats.append(currentFavouriteCat)
                         
-                        currentCatAddedToFavourites = true
+                        currentAddedToFavourites = true
                     }
                 }
             
@@ -103,7 +100,7 @@ struct CatView: View {
     // MARK: Functions
     func loadNewImage() async {
         // Assemble the URL that points to the endpoint
-        let url = URL(string: "https://cdn2.thecatapi.com/images/aqb.jpg")!
+        let url = URL(string: "https://api.thecatapi.com/v1/images/search")!
         
         // Define the type of data we want from the endpoint
         // Configure the request to the web site
@@ -133,7 +130,7 @@ struct CatView: View {
             //force unwrapping the URL, which was an optional, telling swift that we know
             //that the URL definitely is a correct url
             
-            currentCatAddedToFavourites = false
+            currentAddedToFavourites = false
             
             
         } catch {
@@ -205,7 +202,7 @@ struct CatView: View {
 struct CatView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ContentView()
+            CatView()
         }
     }
 }
